@@ -4,6 +4,8 @@ Personal playground for istio related stuff.
 
 - Virtual service delegates:
 
+First, it's necessary to enable delegates in Istio config. Set env var `PILOT_ENABLE_VIRTUAL_SERVICE_DELEGATE` to `"true"` in istiod deployment.
+
 ```bash
 kubectl create namespace delegate
 kubectl label namespace delegate istio-injection=enabled
