@@ -1,0 +1,32 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vs-delegate-a
+  namespace: delegate
+spec:
+  http:
+  - match:
+    - uri:
+        exact: /a/v1/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: a
+        subset: v1
+  - match:
+    - uri:
+        exact: /a/v2/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: a
+        subset: v2
+  - rewrite:
+      uri: /404
+    route:
+    - destination:
+        host: a
+        subset: v1

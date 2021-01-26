@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: a
+    version: v1
+  name: a-v1
+  namespace: delegate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: a
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: a
+        version: v1
+    spec:
+      containers:
+      - image: nginxdemos/hello
+        imagePullPolicy: IfNotPresent
+        name: hello
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        securityContext:
+          privileged: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: a
+    version: v2
+  name: a-v2
+  namespace: delegate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: a
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: a
+        version: v2
+    spec:
+      containers:
+      - image: nginxdemos/hello
+        imagePullPolicy: IfNotPresent
+        name: hello
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        securityContext:
+          privileged: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: a
+  namespace: delegate
+  labels:
+    app: a
+spec:
+  ports:
+  - name: http
+    port: 80
+  selector:
+    app: a
