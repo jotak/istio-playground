@@ -18,7 +18,7 @@ kubectl apply -f ./delegate/vs-delegate-a.yml
 kubectl apply -f ./delegate/vs-delegate-b.yml
 ```
 
-Adapt your gateway host for the following:
+Adapt your gateway host/port in the following URLs:
 
 - http://test.delegate.org:32438/a/v1/ routes to service a, deployment v1
 - http://test.delegate.org:32438/a/v2/ routes to service a, deployment v2
